@@ -24,7 +24,9 @@ class Level:
         self.screen.blit(self.player.bg, (self.player.bgX, self.player.bgY))
 
         self.sprites.draw(self.screen)
-        self.enemy_sprites.draw(self.bg)
+        self.enemy_sprites.draw(self.player.bg)
+
+        print(self.player.x_coord, self.player.y_coord)
 
         self.sprites.update(self.screen, dt)
         self.enemy_sprites.update(dt)

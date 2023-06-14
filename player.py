@@ -13,6 +13,8 @@ class Player (pygame.sprite.Sprite):
         self.image = pygame.image.load(os.path.join('images', 'player5.png')).convert_alpha()
         self.rect = self.image.get_rect(center = pos)
         self.directionVector = pygame.math.Vector2(0, 0)
+        self.x_coord = 0
+        self.y_coord = 0
 
         self.bg = bg
         self.bgX = bgX
@@ -120,6 +122,9 @@ class Player (pygame.sprite.Sprite):
 
         self.pos.y += math.sin(5 * time.time()) * 0.2
         self.rect.center = self.pos
+
+        self.x_coord = -self.bgX + self.pos.x
+        self.y_coord = -self.bgY + self.pos.y
 
         screen.blit(self.eUI, (10, screen.get_height() - (10 + 80)))
 
