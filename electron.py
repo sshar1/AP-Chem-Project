@@ -9,7 +9,6 @@ class Electron(pygame.sprite.Sprite):
         self.low_bound = 20
         self.up_bound = 2480
         self.pos = pygame.Vector2(random.randint(self.low_bound, self.up_bound), random.randint(self.low_bound, self.up_bound))
-        # self.pos = pygame.Vector2(100, 100)
 
         self.image = pygame.image.load(os.path.join('images', 'electron.png')).convert_alpha()
         self.rect = self.image.get_rect(center = self.pos)
@@ -28,7 +27,7 @@ class Electron(pygame.sprite.Sprite):
         return direct.normalize()
 
     def next_speed(self):
-        return random.randint(150, 300)
+        return random.randint(200, 350)
     
     # Every 5 seconds, get random direction and multiply by random speed. If 5 seconds passes or electron touches a boundary, get new random vectors
     def update(self, dt):

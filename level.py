@@ -24,9 +24,16 @@ class Level:
         self.screen.blit(self.player.bg, (self.player.bgX, self.player.bgY))
 
         self.sprites.draw(self.screen)
-        self.enemy_sprites.draw(self.player.bg)
 
-        print(self.player.x_coord, self.player.y_coord)
+        # Coords of center of cam
+        cam_x = self.screen.get_width() / 2 - self.player.bgX
+        cam_y = self.screen.get_height() / 2 - self.player.bgY
+
+        for electron in self.electrons:
+            x = electron.pos.x - cam_x + self.screen.get_width() / 2
+            y = electron.pos.y - cam_y + self.screen.get_height() / 2
+            rel_coords = pygame.Vector2(x, y)
+            self.screen.blit(electron.image, rel_coords)
 
         self.sprites.update(self.screen, dt)
         self.enemy_sprites.update(dt)
