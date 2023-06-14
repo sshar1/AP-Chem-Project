@@ -19,13 +19,13 @@ class Electron(pygame.sprite.Sprite):
         self.dt_sum = 0
 
     def next_direction(self):
-        horizontal = random.randint(-1, 1)
-        vertical = random.randint(-1, 1)
-        direct = pygame.Vector2(horizontal, vertical)
+        direct = pygame.Vector2()
+        while direct.magnitude() == 0:
+            horizontal = random.randint(-1, 1)
+            vertical = random.randint(-1, 1)
+            direct = pygame.Vector2(horizontal, vertical)
 
-        if direct.magnitude() != 0:
-            return direct.normalize()
-        return direct
+        return direct.normalize()
 
     def next_speed(self):
         return random.randint(150, 300)
