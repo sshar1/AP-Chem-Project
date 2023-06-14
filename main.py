@@ -9,7 +9,7 @@ class Game:
 
         # Pygame Setup
         pygame.init()
-        self.screen = pygame.display.set_mode((1074, 597)) 
+        self.screen = pygame.display.set_mode((1074, 597)) # 1074, 597
         pygame.display.set_caption("The Legend Of Sodium")
         self.clock = pygame.time.Clock()
 
