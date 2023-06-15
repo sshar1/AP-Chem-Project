@@ -12,10 +12,13 @@ class Electron(pygame.sprite.Sprite):
 
         self.image = pygame.image.load(os.path.join('images', 'electron.png')).convert_alpha()
         self.rect = self.image.get_rect(center = self.pos)
+        self.hit_rect = self.rect.copy()
 
         self.direction = self.next_direction()
         self.speed = 0
         self.dt_sum = 0
+
+        self.dead = False
 
     def next_direction(self):
         direct = pygame.Vector2()
@@ -49,3 +52,7 @@ class Electron(pygame.sprite.Sprite):
             return
 
         self.rect.center = self.pos
+
+    def update_hitbox(self, coords):
+        # self.hit_rect = self.rect.copy()
+        self.hit_rect.topleft = coords

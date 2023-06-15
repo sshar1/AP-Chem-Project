@@ -43,7 +43,7 @@ class Player (pygame.sprite.Sprite):
             '1s^2 2s^2 2p^6 3s^2 3p^3'
         ]   
 
-    def update(self, screen, dt):
+    def update(self, screen, electrons, dt):
         # Camera scrolling logic
         keys = pygame.key.get_pressed()
         self.directionVector = pygame.math.Vector2(0, 0)
@@ -120,13 +120,23 @@ class Player (pygame.sprite.Sprite):
                 if self.pos.x + self.image.get_width() / 2 >= screen.get_width():
                     self.pos.x = screen.get_width() - self.image.get_width() / 2
 
-        self.pos.y += math.sin(5 * time.time()) * 0.2
+        if self.directionVector.y == 0:
+            self.pos.y += math.sin(5 * time.time()) * 0.2
         self.rect.center = self.pos
 
         self.x_coord = -self.bgX + self.pos.x
         self.y_coord = -self.bgY + self.pos.y
 
+        self.check_collisions(electrons)
+
         screen.blit(self.eUI, (10, screen.get_height() - (10 + 80)))
+
+    def check_collisions(self, electrons):
+        for electron in electrons:
+            if self.rect.colliderect(electron.hit_rect) and not electron.dead:
+                print('player collided')
+                electron.dead = True
+                electron.kill()
 
     def getEConfig(self):
         return self.e_configs[self.electrons]
