@@ -25,9 +25,6 @@ class Level:
         self.ui = UI()
 
     def draw_electrons(self):
-        # Coords of center of cam
-        cam_x = self.screen.get_width() / 2 - self.player.bgX
-        cam_y = self.screen.get_height() / 2 - self.player.bgY
 
         for electron in self.electrons:
             # If there's a dead electron, replace them
@@ -35,8 +32,8 @@ class Level:
                 self.electrons.remove(electron)
                 self.electrons.append(Electron(self.enemy_sprites))
 
-            x = electron.pos.x - cam_x + self.screen.get_width() / 2
-            y = electron.pos.y - cam_y + self.screen.get_height() / 2
+            x = electron.pos.x + self.player.bgX
+            y = electron.pos.y + self.player.bgY
             rel_coords = pygame.Vector2(x, y)
 
             electron.update_hitbox(rel_coords)
