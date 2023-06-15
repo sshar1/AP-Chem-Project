@@ -2,6 +2,7 @@ import random
 import pygame
 import os
 
+# TODO when electrons spawn, they don't move for the first 5 seconds because of the cooldown, removing the cooldown makes them move very fast on initialization
 class Electron(pygame.sprite.Sprite):
     def __init__(self, groups):
         super().__init__(groups)
@@ -53,6 +54,8 @@ class Electron(pygame.sprite.Sprite):
 
         self.rect.center = self.pos
 
+    def die(self):
+        self.image = pygame.surface.Surface((0, 0))
+
     def update_hitbox(self, coords):
-        # self.hit_rect = self.rect.copy()
         self.hit_rect.topleft = coords

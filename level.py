@@ -1,7 +1,9 @@
+import time
 import pygame
 import os
 from player import Player
 from electron import Electron
+from ui import UI
 
 class Level:
     def __init__(self):
@@ -20,17 +22,19 @@ class Level:
 
         self.electrons = [Electron(self.enemy_sprites) for _ in range(8)]
 
-    def run(self, dt):
-        self.screen.blit(self.player.bg, (self.player.bgX, self.player.bgY))
+        self.ui = UI()
 
-        self.sprites.draw(self.screen)
-        # pygame.draw.rect(self.screen, "red", self.player.rect)
-
+    def draw_electrons(self):
         # Coords of center of cam
         cam_x = self.screen.get_width() / 2 - self.player.bgX
         cam_y = self.screen.get_height() / 2 - self.player.bgY
 
         for electron in self.electrons:
+            # If there's a dead electron, replace them
+            if electron.dead:
+                self.electrons.remove(electron)
+                self.electrons.append(Electron(self.enemy_sprites))
+
             x = electron.pos.x - cam_x + self.screen.get_width() / 2
             y = electron.pos.y - cam_y + self.screen.get_height() / 2
             rel_coords = pygame.Vector2(x, y)
@@ -39,7 +43,15 @@ class Level:
             self.screen.blit(electron.image, rel_coords)
             # pygame.draw.rect(self.screen, "black", electron.hit_rect)
 
+    def run(self, dt):
+        self.screen.blit(self.player.bg, (self.player.bgX, self.player.bgY))
+
+        self.sprites.draw(self.screen)
+        # pygame.draw.rect(self.screen, "red", self.player.rect)
+        self.draw_electrons()
+
         self.sprites.update(self.screen, self.electrons, dt)
         self.enemy_sprites.update(dt)
+        self.ui.display(self.player)
 
         pygame.display.update()
