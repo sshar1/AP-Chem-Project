@@ -1,18 +1,21 @@
 { "questions" :
-    {
-        "first question here?" :
-            {
-                "a" : "sample a",
-                "b" : "sample b",
-                "c" : "sample c",
-                "d" : "sample d"
-            },
-        "second question here?" :
-            {
-                "a" : "sample a",
-                "b" : "sample b",
-                "c" : "sample c",
-                "d" : "sample d"
-            }
-    }
+    [
+        {
+            "question" : "This is question 1? (answer is a)",
+            "a" : "sample a",
+            "b" : "sample b",
+            "c" : "sample c",
+            "d" : "sample d",
+            "correct" : "a"
+        },
+
+        {
+            "question" : "This is question 2? (answer is c)",
+            "a" : "sample a",
+            "b" : "sample b",
+            "c" : "sample c",
+            "d" : "sample d",
+            "correct" : "c"
+        }
+    ]
 }

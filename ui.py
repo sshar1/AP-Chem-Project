@@ -1,5 +1,7 @@
 import os
+import random
 import pygame
+import json
 
 class UI:
     def __init__(self):
@@ -12,6 +14,12 @@ class UI:
         self.question_rect = pygame.Rect(50, 50, 750, 400)
         self.question_rect.center = (self.screen.get_width() / 2, self.screen.get_height() / 2)
         self.question_bgcolor = pygame.Color(50, 50, 50)
+
+        f = open('questions.json')
+        self.questions = json.load(f)['questions']
+
+        self.current_question_index = 0
+        self.response = ""
 
         self.e_configs = [
             '-',
@@ -32,9 +40,15 @@ class UI:
             '1s^2 2s^2 2p^6 3s^2 3p^3'
         ]
 
-    # This gets a random question from json
+        self.letters = ['a', 'b', 'c', 'd']
+
+    def index_to_letter(self, index):
+        return self.letters[index]
+
+    # This gets a random question from json. Called once when player collides with electron
     def get_question(self):
-        pass
+        self.current_question_index = random.randint(0, len(self.questions) - 1)
+        self.response = ""
 
     # This displays that question
     def display_question(self):
@@ -42,22 +56,37 @@ class UI:
         pygame.draw.rect(self.screen, self.question_bgcolor, self.question_rect)
 
         # Question
-        question_surf = self.question_font.render('This is a sample question?', True, 'white')
+        question_text = self.questions[self.current_question_index]['question']
+        question_surf = self.question_font.render(question_text, True, 'white')
         question_txt_rect = question_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 15))
         self.screen.blit(question_surf, question_txt_rect)
 
         # Answers
         for i in range(4):
-            answer_surf = self.question_font.render(str(i + 1) + '.  My sample answer', True, 'white')
+            answer_letter = self.index_to_letter(i)
+            answer_text = self.questions[self.current_question_index][answer_letter]
+            answer_surf = self.question_font.render(answer_letter + '.  ' + answer_text, True, 'white')
             answer_txt_rect = answer_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 150 + i * 50))
             self.screen.blit(answer_surf, answer_txt_rect)
 
-    # return 1 2 3 4
-    def get_answer(self):
-        return 1
+        # Status (right or wrong)
+        color = ''
+        if self.response == 'Correct :)':
+            color = 'green'
+        elif self.response == 'Wrong!':
+            color = 'red'
+        else:
+            color = 'white'
+        response_surf = self.question_font.render(self.response, True, color)
+        response_txt_rect = question_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 70))
+        self.screen.blit(response_surf, response_txt_rect)
 
-    def display_answer(self, msg):
-        print(msg)
+    # return 1 2 3 4 depending on correct answer
+    def get_answer(self):
+        return self.letters.index(self.questions[self.current_question_index]['correct']) + 1
+
+    def set_response(self, response):
+        self.response = response
 
     def display(self, player):
 

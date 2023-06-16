@@ -3,8 +3,6 @@ import time
 import pygame
 import os
 
-# TODO when moving up/down from rest, movement may be jittery for some moments. This is a result of the bobbing with sin. When pressing W and S at the same time, you go up and down
-
 class Player (pygame.sprite.Sprite):
 
     def __init__(self, pos, bg, bgX, bgY, groups):
@@ -24,6 +22,8 @@ class Player (pygame.sprite.Sprite):
         self.max_electrons = 15
 
         self.answering_question = False
+        self.dt_sum = 0
+        self.question_input_received = False
 
     def question_input(self):
         keys = pygame.key.get_pressed()
@@ -39,17 +39,25 @@ class Player (pygame.sprite.Sprite):
 
     def update(self, screen, electrons, ui, dt):
 
+        # Question ui
         if self.answering_question:
             ui.display_question()
             if self.question_input() == ui.get_answer():
-                ui.display_answer('correct :)')
-                time.sleep(2)
-                self.answering_question = False
-                self.electrons += 1
+                if not self.question_input_received and self.electrons < self.max_electrons:
+                    self.electrons += 1
+                self.question_input_received = True
+                ui.set_response('Correct :)')
             elif self.question_input() is not None and self.question_input() in [1, 2, 3, 4]:
-                ui.display_answer('wrong!')
-                time.sleep(2)
-                self.answering_question = False
+                self.question_input_received = True
+                ui.set_response('Wrong!')
+            
+            if self.question_input_received:
+                # Wait 2 seconds
+                self.dt_sum += dt
+                if self.dt_sum >= 2:
+                    self.question_input_received = False
+                    self.dt_sum = 0
+                    self.answering_question = False
             return
 
         # Camera scrolling logic
@@ -149,6 +157,3 @@ class Player (pygame.sprite.Sprite):
                     self.answering_question = True
                 else:
                     print('max electrons obtained')
-
-    def getEConfig(self):
-        return self.e_configs[self.electrons]
