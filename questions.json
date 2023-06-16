@@ -1,21 +1,255 @@
 { "questions" :
     [
         {
-            "question" : "This is question 1? (answer is a)",
-            "a" : "sample a",
-            "b" : "sample b",
-            "c" : "sample c",
-            "d" : "sample d",
+            "question" : "Why does an ion of phosphorus, P3-, have a larger radius than a neutral atom of phosphorus?",
+            "a" : "There is a greater Coulombic attraction between the nucleus and the electrons in P3-.",
+            "b" : "The core electrons in P3- exert a weaker shielding force than those of a neutral atom.",
+            "c" : "The nuclear charge is weaker in P3- than it is in P.",
+            "d" : "The electrons in P3- have a greater Coulombic repulsion than those in the neutral atom.",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "A compound is entirely made up of silicon and oxygen atoms. If there are 14.0 g of silicon and 32.0 g of oxygen present, what is the empirical formula of the compound?",
+            "a" : "SiO2",
+            "b" : "SiO4",
+            "c" : "Si2O",
+            "d" : "Si2O3",
+            "correct" : "b"
+        },
+
+        {
+            "question" : "Which of the following statements is true regarding sodium and chlorine?",
+            "a" : "Sodium has greater electronegativity and a larger first ionization energy.",
+            "b" : "Sodium has a larger first ionization energy and a larger atomic radius.",
+            "c" : "Chlorine has a larger atomic radius and a greater electronegativity.",
+            "d" : "Chlorine has greater electronegativity and a larger first ionization energy.",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "A sealed, rigid container contains three gases: 28.0 g of nitrogen, 40.0 g of argon, and 36.0 g of water vapor. If the total pressure exerted by the gases is 2.0 atm, what is the partial pressure of the nitrogen?",
+            "a" : "0.33 atm",
+            "b" : "0.40 atm",
+            "c" : "0.50 atm",
+            "d" : "2.0 atm",
+            "correct" : "c"
+        },
+
+        {
+            "question" : "A sample of liquid NH3 is brought to its boiling point. Which of the following occurs during the boiling process?",
+            "a" : "The N-H bonds within the NH3 molecules break apart.",
+            "b" : "The overall temperature of the solution rises as the NH3 molecules speed up.",
+            "c" : "The amount of energy within the system remains constant.",
+            "d" : "The hydrogen bonds holding separate NH3 molecules together break apart.",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "Which of the following compounds would have the highest lattice energy?",
+            "a" : "LiF",
+            "b" : "MgCl2",
+            "c" : "CaBr2",
+            "d" : "C2H6",
+            "correct" : "b"
+        },
+
+        {
+            "question" : "Under which of the following conditions would the gases in a container most deviate from ideal conditions and why?",
+            "a" : "Low pressures, because the gas molecules would be spread far apart",
+            "b" : "High pressures, because the gas molecules will be colliding frequently",
+            "c" : "Low temperatures, because the intermolecular forces between the gas molecules would increase",
+            "d" : "High temperatures, because the gas molecules are moving too fast to interact with one another",
+            "correct" : "c"
+        },
+
+        {
+            "question" : "Nitrogen gas was collected over water at 25°C. If the vapor pressure of water at 25°C is 23 mmHg, and the total pressure in the container is measured at 781 mmHg, what is the partial pressure of the nitrogen gas?",
+            "a" : "46 mmHg",
+            "b" : "551 mmHg",
+            "c" : "735 mmHg",
+            "d" : "758 mmHg",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "If solutions of iron (III) nitrate and sodium carbonate are mixed, what would be the formula of the precipitate?",
+            "a" : "Fe3CO3",
+            "b" : "Fe2(CO3)3",
+            "c" : "NaNO3",
+            "d" : "No precipitate would form.",
+            "correct" : "b"
+        },
+
+        {
+            "question" : "Choose the correct net ionic equation representing the reaction that occurs when solutions of potassium carbonate and copper (I) chloride are mixed.",
+            "a" : "K2CO3(aq) + 2CuCl(aq) -> 2KCl(aq) + Cu2CO3(s)",
+            "b" : "K2CO3(aq) + 2CuCl(aq) -> 2KCl(s) + Cu2CO3(aq)",
+            "c" : "CO32- + 2Cu+ -> Cu2CO3(s)",
+            "d" : "CO32- + Cu2+ -> CuCO3(s)",
+            "correct" : "c"
+        },
+
+        {
+            "question" : "What is the mass of oxygen in 148 grams of calcium hydroxide (Ca(OH)2)?",
+            "a" : "24 grams",
+            "b" : "32 grams",
+            "c" : "48 grams",
+            "d" : "64 grams",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "12.25 grams of potassium chloride are reacted in the equation: 2KClO3(s) -> 2KCl(s) + 3O2(g). How many liters of oxygen are formed at STP?",
+            "a" : "2.24 L",
+            "b" : "3.36 L",
+            "c" : "4.48 L",
+            "d" : "22.4 L",
+            "correct" : "b"
+        },
+
+        {
+            "question" : "A sample of a hydrate of CuSO4 with a mass of 250 grams was heated until all the water was removed. The sample was then weighed and found to have a mass of 160 grams. What is the formula for the hydrate?",
+            "a" : " CuSO4 o 10H2O",
+            "b" : "CuSO4 o 7H2O",
+            "c" : "CuSO4 o 5H2O",
+            "d" : "CuSO4 o 2H2O",
+            "correct" : "c"
+        },
+
+        {
+            "question" : "Which expression below should be used to calculate the mass of copper that can be plated out of a 1.0 M Cu(NO3)2 solution using a current of 0.75 A for 5.0 minutes?",
+            "a" : "(5.0)(60)(0.75)(63.55) / (96500)(2)",
+            "b" : "(5.0)(60)(2)(63.55) / (96500)(0.75)",
+            "c" : "(5.0)(60)(0.75)(96500) / (63.55)(2)",
+            "d" : "(5.0)(60)(96500)(63.55) / (0.75)(2)",
             "correct" : "a"
         },
 
         {
-            "question" : "This is question 2? (answer is c)",
-            "a" : "sample a",
-            "b" : "sample b",
-            "c" : "sample c",
-            "d" : "sample d",
+            "question" : "In the following reaction, a piece of solid nickel is added to a solution of potassium dichromate: 14H+ (aq) + Cr2O72- (aq) + 3Ni (s) -> 2Cr3+ (aq) + 3Ni2+ (aq) + 7H2O (l). How many moles of electrons are transferred when 1 mole of potassium dichromate is mixed with 3 moles of nickel?",
+            "a" : "2 moles of electrons",
+            "b" : "3 moles of electrons",
+            "c" : "5 moles of electrons",
+            "d" : "6 moles of electrons",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "Why would increasing the temperature make the reaction rate go up?",
+            "a" : "It is an endothermic reaction that needs an outside energy source to function.",
+            "b" : "The various molecules in the reactions will move faster and collide more often.",
+            "c" : "The overall activation energy of the reaction will be lowered.",
+            "d" : "A higher fraction of molecules will have the same activation energy.",
+            "correct" : "b"
+        },
+
+        {
+            "question" : "SO2Cl2 -> SO2(g) + Cl2(g). At 600 K, SO2Cl2 will decompose to form sulfur dioxide and chlorine gas via the above equation. If the reaction is found to be first order overall, which of the following will cause an increase in the half-life of SO2Cl2?",
+            "a" : "Increasing the initial concentration of SO2Cl2.",
+            "b" : "Increasing the temperature at which the reaction occurs.",
+            "c" : "Decreasing the overall pressure in the container.",
+            "d" : "None of these will increase the half life.",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "A + B -> C + D. Rate = k[A][B]^2. What are the potential units for the rate constant for the above reaction?",
+            "a" : "s-1",
+            "b" : "s-1 M-1",
+            "c" : "s-1 M-2",
+            "d" : "s-1 M-3",
             "correct" : "c"
+        },
+
+        {
+            "question" : "A 2.0 L flask holds 0.40 g of helium gas. If the helium is evacuated into a larger container while the temperature is held constant, what will the effect on the entropy of the helium be?",
+            "a" : "It will remain constant because the number of helium molecules does not change.",
+            "b" : "It will decrease because the gas will be more ordered in the larger flask.",
+            "c" : "It will decrease because the molecules will collide with the sides of the larger flask less often than they did in the smaller flask.",
+            "d" : "It will increase because the gas molecules will be more dispersed in the larger flask.",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "2Al(s) + 3Cl2(g) -> 2AlCl3(s). The reaction is not thermodynamically favored under standard conditions, but it becomes thermodynamically favored as the temperature decreases toward absolute zero. Which of the following is true at standard conditions?",
+            "a" : "S and H are both negative.",
+            "b" : "S and H are both positive.",
+            "c" : "S is negative, and H is positive.",
+            "d" : "S is positive, and H is negative.",
+            "correct" : "a"
+        },
+
+        {
+            "question" : "SF4(g) + H2O(l) -> SO2(g) + 4HF(g) H = -828 kJ/mol. Which of the following statements accurately describes the above reaction?",
+            "a" : "The entropy of the reactants exceeds that of the products.",
+            "b" : "H2O(l) will always be the limiting reagent.",
+            "c" : "This reaction is never thermodynamically favored.",
+            "d" : "The temperature of the surroundings will increase as this reaction progresses.",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "A student titrates 20.0 mL of 1.0 M NaOH with 2.0 M formic acid, HCO2H (Ka = 1.8 x 10-4). Formic acid is a monoprotic acid.",
+            "a" : "10.0 mL",
+            "b" : "20.0 mL",
+            "c" : "30.0 mL",
+            "d" : "40.0 mL",
+            "correct" : "a"
+        },
+
+        {
+            "question" : "Which of the following would create a good buffer when dissolved in formic acid (HCO2H)?",
+            "a" : "NaCO2H",
+            "b" : "HC2H3O2",
+            "c" : "NH3",
+            "d" : "H2O",
+            "correct" : "a"
+        },
+
+        {
+            "question" : "The following reaction is found to be at equilibrium at 25°C: 2SO3(g) ↔ O2 (g) + 2SO2(g) H = -198 kJ/mol. What is the expression for the equilibrium constant?",
+            "a" : "[SO3]^2 / [O2][SO2]^2",
+            "b" : "2[SO3] / [O2][SO2]^2",
+            "c" : "[O2][SO2]^2 / [SO3]^2",
+            "d" : "[O2]^2[SO2] / 2[SO3]",
+            "correct" : "c"
+        },
+
+        {
+            "question" : "The following reaction is found to be at equilibrium at 25°C: 2SO3(g) ↔ O2 (g) + 2SO2(g) H = -198 kJ/mol. Which of the following would cause a reduction in the value for the equilibrium constant?",
+            "a" : "Increasing the amount of SO3",
+            "b" : "Reducing the amount of O2",
+            "c" : "Raising the temperature",
+            "d" : "Lowering the temperature",
+            "correct" : "c"
+        },
+
+        {
+            "question" : "How many liters of distilled water must be added to 1 liter of an aqueous solution of HCl with a pH of 1 to create a solution with a pH of 2?",
+            "a" : "0.1 L",
+            "b" : "0.9 L",
+            "c" : "2 L",
+            "d" : "9 L",
+            "correct" : "d"
+        },
+
+        {
+            "question" : "A 1-molar solution of a very weak monoprotic acid has a pH of 5. What is the value of Ka for the acid?",
+            "a" : "Ka = 1 x 10^-10",
+            "b" : "Ka = 1 x 10^-7",
+            "c" : "Ka = 1 x 10^-5",
+            "d" : "Ka = 1 x 10^-2",
+            "correct" : "a"
+        },
+
+        {
+            "question" : "The value of Ka for HSO4 - is 1 x 10-2. What is the value of Kb for SO4 2-?",
+            "a" : " Kb = 1 x 10^-12",
+            "b" : "Kb = 1 x 10^-8",
+            "c" : "Kb = 1 x 10^-2",
+            "d" : "Kb = 1 x 10^2",
+            "correct" : "a"
         }
     ]
 }
