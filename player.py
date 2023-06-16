@@ -23,6 +23,20 @@ class Player (pygame.sprite.Sprite):
         self.electrons = 0
         self.max_electrons = 15
 
+        self.answering_question = False
+
+    def question_input(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_1]:
+            print('1 clicked')
+        elif keys[pygame.K_2]:
+            print('2 clicked')
+        elif keys[pygame.K_3]:
+            print('3 clicked')
+        elif keys[pygame.K_4]:
+            print('4 clicked')
+
     def update(self, screen, electrons, dt):
         # Camera scrolling logic
         keys = pygame.key.get_pressed()
@@ -117,6 +131,7 @@ class Player (pygame.sprite.Sprite):
                 electron.die()
                 if self.electrons < self.max_electrons:
                     self.electrons += 1
+                    self.answering_question = True
                 else:
                     print('max electrons obtained')
 
