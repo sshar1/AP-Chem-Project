@@ -32,7 +32,12 @@ class UI:
             '1s^2 2s^2 2p^6 3s^2 3p^3'
         ]
 
-    def create_question(self):
+    # This gets a random question from json
+    def get_question(self):
+        pass
+
+    # This displays that question
+    def display_question(self):
         # Background
         pygame.draw.rect(self.screen, self.question_bgcolor, self.question_rect)
 
@@ -47,6 +52,13 @@ class UI:
             answer_txt_rect = answer_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 150 + i * 50))
             self.screen.blit(answer_surf, answer_txt_rect)
 
+    # return 1 2 3 4
+    def get_answer(self):
+        return 1
+
+    def display_answer(self, msg):
+        print(msg)
+
     def display(self, player):
 
         text_surf = self.e_config_font.render(self.e_configs[player.electrons], False, 'black')
@@ -54,5 +66,5 @@ class UI:
 
         self.screen.blit(self.eUI, (10, self.screen.get_height() - 90))
         self.screen.blit(text_surf, text_rect)
-        self.create_question()
+        # self.create_question()
 

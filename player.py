@@ -29,15 +29,29 @@ class Player (pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_1]:
-            print('1 clicked')
+            return 1
         elif keys[pygame.K_2]:
-            print('2 clicked')
+            return 2
         elif keys[pygame.K_3]:
-            print('3 clicked')
+            return 3
         elif keys[pygame.K_4]:
-            print('4 clicked')
+            return 4
 
-    def update(self, screen, electrons, dt):
+    def update(self, screen, electrons, ui, dt):
+
+        if self.answering_question:
+            ui.display_question()
+            if self.question_input() == ui.get_answer():
+                ui.display_answer('correct :)')
+                time.sleep(2)
+                self.answering_question = False
+                self.electrons += 1
+            elif self.question_input() is not None and self.question_input() in [1, 2, 3, 4]:
+                ui.display_answer('wrong!')
+                time.sleep(2)
+                self.answering_question = False
+            return
+
         # Camera scrolling logic
         keys = pygame.key.get_pressed()
         self.directionVector = pygame.math.Vector2(0, 0)
@@ -116,21 +130,22 @@ class Player (pygame.sprite.Sprite):
 
         if self.directionVector.y == 0:
             self.pos.y += math.sin(5 * time.time()) * 0.2
+
         self.rect.center = self.pos
 
         self.x_coord = -self.bgX + self.pos.x
         self.y_coord = -self.bgY + self.pos.y
 
-        self.check_collisions(electrons)
+        self.check_collisions(electrons, ui)
 
-    def check_collisions(self, electrons):
+    def check_collisions(self, electrons, ui):
         for electron in electrons:
             if self.rect.colliderect(electron.hit_rect) and not electron.dead:
                 electron.dead = True
                 electron.kill()
                 electron.die()
                 if self.electrons < self.max_electrons:
-                    self.electrons += 1
+                    ui.get_question()
                     self.answering_question = True
                 else:
                     print('max electrons obtained')

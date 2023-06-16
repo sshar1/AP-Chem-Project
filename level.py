@@ -1,4 +1,3 @@
-import time
 import pygame
 import os
 from player import Player
@@ -47,8 +46,11 @@ class Level:
         # pygame.draw.rect(self.screen, "red", self.player.rect)
         self.draw_electrons()
 
-        self.sprites.update(self.screen, self.electrons, dt)
-        self.enemy_sprites.update(dt)
+        self.sprites.update(self.screen, self.electrons, self.ui, dt)
+
+        if not self.player.answering_question: # TODO electrons teleport after answering a question
+            self.enemy_sprites.update(dt)
+
         self.ui.display(self.player)
 
         pygame.display.update()
