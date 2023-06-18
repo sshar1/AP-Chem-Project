@@ -120,7 +120,3 @@ class UI:
 
         self.display_e_config(player)
         self.display_heat(player)
-
-        
-
-        
