@@ -10,7 +10,7 @@ class UI:
 
         self.eUI = pygame.image.load(os.path.join('images', 'eConfigUI2.png')).convert_alpha()
         self.e_config_font = pygame.font.Font(None, 17)
-        self.question_font = pygame.font.Font(None, 25) # 40
+        self.question_font = pygame.font.Font(None, 30) # 40
         self.answer_font = pygame.font.Font(None, 25) # 40
 
         self.question_rect = pygame.Rect(50, 50, 750, 400)
@@ -52,43 +52,57 @@ class UI:
         self.current_question_index = random.randint(0, len(self.questions) - 1)
         self.response = ""
 
-    # This displays that question
-    def display_question(self):
-        # Background
-        pygame.draw.rect(self.screen, self.question_bgcolor, self.question_rect)
-
-        # Question
-        question_text = self.questions[self.current_question_index]['question']
-        question_surf = self.question_font.render(question_text, True, 'white')
-        question_txt_rect = question_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 15))
-        self.screen.blit(question_surf, question_txt_rect)
-
-        # Answers
-        for i in range(4):
-            answer_letter = self.index_to_letter(i)
-            answer_text = self.questions[self.current_question_index][answer_letter]
-            answer_surf = self.answer_font.render(answer_letter + '.  ' + answer_text, True, 'white')
-            answer_txt_rect = answer_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 150 + i * 50))
-            self.screen.blit(answer_surf, answer_txt_rect)
-
-        # Status (right or wrong)
-        color = ''
+    def get_response_color(self):
         if self.response == 'Correct :)':
-            color = 'green'
+            return 'green'
         elif self.response == 'Wrong!':
-            color = 'red'
+            return 'red'
         else:
-            color = 'white'
-        response_surf = self.question_font.render(self.response, True, color)
-        response_txt_rect = question_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 70))
-        self.screen.blit(response_surf, response_txt_rect)
+            return 'white'
 
-    # return 1 2 3 4 depending on correct answer
+    # Return 1 2 3 4 depending on correct answer
     def get_answer(self):
         return self.letters.index(self.questions[self.current_question_index]['correct']) + 1
 
     def set_response(self, response):
         self.response = response
+
+    def blit_text(self, surface, text, pos, font, color=pygame.Color('white')):
+        words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
+        space = font.size(' ')[0]  # The width of a space.
+        max_width = self.question_rect.topleft[0] + self.question_rect.width - 20
+        x, y = pos
+        for line in words:
+            for word in line:
+                word_surface = font.render(word, 0, color)
+                word_width, word_height = word_surface.get_size()
+                if x + word_width >= max_width:
+                    x = pos[0]  # Reset the x.
+                    y += word_height  # Start on new row.
+                surface.blit(word_surface, (x, y))
+                x += word_width + space
+            x = pos[0]  # Reset the x.
+            y += word_height  # Start on new row.
+
+    # Displays the question
+    def display_question(self):
+        # Background
+        pygame.draw.rect(self.screen, self.question_bgcolor, self.question_rect)
+
+        # Question
+        txt = self.questions[self.current_question_index]['question']
+        self.blit_text(self.screen, txt, self.question_rect.topleft + pygame.Vector2(15, 15), self.question_font)
+
+        # Answers
+        for i in range(4):
+            answer_letter = self.index_to_letter(i)
+            txt = answer_letter + '.  ' + self.questions[self.current_question_index][answer_letter]
+            self.blit_text(self.screen, txt, self.question_rect.topleft + pygame.Vector2(15, 150 + i * 70), self.answer_font)
+
+        # Status (right or wrong)
+        response_surf = self.question_font.render(self.response, True, self.get_response_color())
+        response_txt_rect = response_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 100))
+        self.screen.blit(response_surf, response_txt_rect)
 
     def display(self, player):
 
@@ -97,5 +111,3 @@ class UI:
 
         self.screen.blit(self.eUI, (10, self.screen.get_height() - 90))
         self.screen.blit(text_surf, text_rect)
-        # self.create_question()
-
