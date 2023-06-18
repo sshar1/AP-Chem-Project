@@ -103,10 +103,24 @@ class UI:
         response_txt_rect = response_surf.get_rect(topleft = self.question_rect.topleft + pygame.Vector2(15, 100))
         self.screen.blit(response_surf, response_txt_rect)
 
-    def display(self, player):
-
+    def display_e_config(self, player):
         text_surf = self.e_config_font.render(self.e_configs[player.electrons], False, 'black')
-        text_rect = text_surf.get_rect(bottomleft = (68, self.screen.get_height() - 39))
+        text_rect = text_surf.get_rect(bottomleft = (68, self.screen.get_height() - 45))
 
-        self.screen.blit(self.eUI, (10, self.screen.get_height() - 90))
         self.screen.blit(text_surf, text_rect)
+
+    def display_heat(self, player):
+        text_surf = self.e_config_font.render("Heats: " + str(player.heats), False, 'black')
+        text_rect = text_surf.get_rect(bottomleft = (68, self.screen.get_height() - 33))
+
+        self.screen.blit(text_surf, text_rect)
+
+    def display(self, player):
+        self.screen.blit(self.eUI, (10, self.screen.get_height() - 90))
+
+        self.display_e_config(player)
+        self.display_heat(player)
+
+        
+
+        

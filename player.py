@@ -18,12 +18,25 @@ class Player (pygame.sprite.Sprite):
         self.bgX = bgX
         self.bgY = bgY
 
+        # Player can have 3 extra electrons max
         self.electrons = 0
-        self.max_electrons = 15
+        self.max_electrons = 14
+        self.goal_electrons = 11
+        self.heats = 0
+        self.max_heats = 3
+        self.eject_dt_sum = 0
 
         self.answering_question = False
         self.dt_sum = 0
         self.question_input_received = False
+
+    def eject_electron(self):
+        extra_electrons = self.electrons - self.goal_electrons
+        heat_cost = 4 - extra_electrons # This equation depends on the fact that you can have 3 extra electrons. You must change this equation if you change max extra electrons
+
+        if extra_electrons > 0 and self.heats >= heat_cost: 
+            self.heats -= heat_cost
+            self.electrons -= 1
 
     def question_input(self):
         keys = pygame.key.get_pressed()
@@ -37,7 +50,7 @@ class Player (pygame.sprite.Sprite):
         elif keys[pygame.K_4]:
             return 4
 
-    def update(self, screen, electrons, ui, dt):
+    def update(self, screen, electrons, heats, ui, dt):
 
         # Question ui
         if self.answering_question:
@@ -136,6 +149,11 @@ class Player (pygame.sprite.Sprite):
                 if self.pos.x + self.image.get_width() / 2 >= screen.get_width():
                     self.pos.x = screen.get_width() - self.image.get_width() / 2
 
+        self.eject_dt_sum += dt
+        if keys[pygame.K_q] and self.eject_dt_sum >= 2:
+            self.eject_electron()
+            self.eject_dt_sum = 0
+
         if self.directionVector.y == 0:
             self.pos.y += math.sin(5 * time.time()) * 0.2
 
@@ -144,15 +162,22 @@ class Player (pygame.sprite.Sprite):
         self.x_coord = -self.bgX + self.pos.x
         self.y_coord = -self.bgY + self.pos.y
 
-        self.check_collisions(electrons, ui)
+        self.check_collisions(electrons, heats, ui)
 
-    def check_collisions(self, electrons, ui):
+    def check_collisions(self, electrons, heats, ui):
         for electron in electrons:
             if self.rect.colliderect(electron.hit_rect) and not electron.dead:
-                electron.kill()
-                electron.die()
                 if self.electrons < self.max_electrons:
+                    electron.die()
                     ui.get_question()
                     self.answering_question = True
                 else:
                     print('max electrons obtained')
+        
+        for heat in heats:
+            if self.rect.colliderect(heat.hit_rect) and not heat.dead:
+                if self.heats < self.max_heats:
+                    heat.die()
+                    self.heats += 1
+                else:
+                    print('max heats obtained')

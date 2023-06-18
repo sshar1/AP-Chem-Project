@@ -2,7 +2,7 @@ import random
 import pygame
 import os
 
-class Electron(pygame.sprite.Sprite):
+class Heat(pygame.sprite.Sprite):
     def __init__(self, groups):
         super().__init__(groups)
 
@@ -10,7 +10,7 @@ class Electron(pygame.sprite.Sprite):
         self.up_bound = 2460
         self.pos = pygame.Vector2(random.randint(self.low_bound, self.up_bound), random.randint(self.low_bound, self.up_bound))
 
-        self.image = pygame.image.load(os.path.join('images', 'electron.png')).convert_alpha()
+        self.image = pygame.image.load(os.path.join('images', 'heat2.png')).convert_alpha()
         self.rect = self.image.get_rect(center = self.pos)
         self.hit_rect = self.rect.copy()
 
@@ -30,14 +30,14 @@ class Electron(pygame.sprite.Sprite):
         return direct.normalize()
 
     def next_speed(self):
-        return random.randint(200, 350)
+        return random.randint(400, 550)
     
-    # Every 5 seconds, get random direction and multiply by random speed. If 5 seconds passes or electron touches a boundary, get new random vectors
+    # Every 5 seconds, get random direction and multiply by random speed. If 5 seconds passes or heat touches a boundary, get new random vectors
     def update(self, dt):
         self.dt_sum += dt
 
-        # Runs every 5 seconds
-        if self.dt_sum >= 5:
+        # Runs every 3 seconds
+        if self.dt_sum >= 3:
             self.direction = self.next_direction()
             self.speed = self.next_speed()
             self.dt_sum = 0

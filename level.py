@@ -1,5 +1,6 @@
 import pygame
 import os
+from heat import Heat
 from player import Player
 from electron import Electron
 from ui import UI
@@ -19,11 +20,12 @@ class Level:
         bgX, bgY = 0, 0
         self.player = Player(player_pos, self.bg, bgX, bgY, self.sprites)
 
-        self.electrons = [Electron(self.enemy_sprites) for _ in range(8)]
+        self.electrons = [Electron(self.enemy_sprites) for _ in range(6)]
+        self.heats = [Heat(self.enemy_sprites) for _ in range(2)]
 
         self.ui = UI()
 
-    def draw_electrons(self):
+    def draw_enemies(self):
 
         for electron in self.electrons:
             if electron.dead:
@@ -36,13 +38,24 @@ class Level:
             electron.update_hitbox(rel_coords)
             self.screen.blit(electron.image, rel_coords)
 
+        for heat in self.heats:
+            if heat.dead:
+                self.heats[self.heats.index(heat)] = Heat(self.enemy_sprites)
+
+            x = heat.pos.x + self.player.bgX
+            y = heat.pos.y + self.player.bgY
+            rel_coords = pygame.Vector2(x, y)
+
+            heat.update_hitbox(rel_coords)
+            self.screen.blit(heat.image, rel_coords)
+
     def run(self, dt):
         self.screen.blit(self.player.bg, (self.player.bgX, self.player.bgY))
 
         self.sprites.draw(self.screen)
-        self.draw_electrons()
+        self.draw_enemies()
 
-        self.sprites.update(self.screen, self.electrons, self.ui, dt)
+        self.sprites.update(self.screen, self.electrons, self.heats, self.ui, dt)
 
         if not self.player.answering_question:
             self.enemy_sprites.update(dt)
