@@ -149,7 +149,6 @@ class Player (pygame.sprite.Sprite):
     def check_collisions(self, electrons, ui):
         for electron in electrons:
             if self.rect.colliderect(electron.hit_rect) and not electron.dead:
-                electron.dead = True
                 electron.kill()
                 electron.die()
                 if self.electrons < self.max_electrons:

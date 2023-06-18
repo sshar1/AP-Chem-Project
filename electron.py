@@ -16,7 +16,7 @@ class Electron(pygame.sprite.Sprite):
         self.hit_rect = self.rect.copy()
 
         self.direction = self.next_direction()
-        self.speed = 0
+        self.speed = self.next_speed()
         self.dt_sum = 0
 
         self.dead = False
@@ -36,6 +36,7 @@ class Electron(pygame.sprite.Sprite):
     # Every 5 seconds, get random direction and multiply by random speed. If 5 seconds passes or electron touches a boundary, get new random vectors
     def update(self, dt):
         self.dt_sum += dt
+        print(dt)
 
         # Runs every 5 seconds
         if self.dt_sum >= 5:
@@ -50,12 +51,17 @@ class Electron(pygame.sprite.Sprite):
             self.direction = self.next_direction()
             self.speed = self.next_speed() * dt
             self.dt_sum = 0
-            return
+
+            if self.pos.x > self.up_bound: self.pos.x = self.up_bound
+            if self.pos.x < self.low_bound: self.pos.x = self.low_bound
+            if self.pos.y > self.up_bound: self.pos.y = self.up_bound
+            if self.pos.y < self.low_bound: self.pos.y = self.low_bound
 
         self.rect.center = self.pos
 
     def die(self):
         self.image = pygame.surface.Surface((0, 0))
+        self.dead = True
 
     def update_hitbox(self, coords):
         self.hit_rect.topleft = coords

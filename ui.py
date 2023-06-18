@@ -3,15 +3,14 @@ import random
 import pygame
 import json
 
-# TODO make questions multi line
 class UI:
     def __init__(self):
         self.screen = pygame.display.get_surface()
 
         self.eUI = pygame.image.load(os.path.join('images', 'eConfigUI2.png')).convert_alpha()
         self.e_config_font = pygame.font.Font(None, 17)
-        self.question_font = pygame.font.Font(None, 30) # 40
-        self.answer_font = pygame.font.Font(None, 25) # 40
+        self.question_font = pygame.font.Font(None, 30) 
+        self.answer_font = pygame.font.Font(None, 25) 
 
         self.question_rect = pygame.Rect(50, 50, 750, 400)
         self.question_rect.center = (self.screen.get_width() / 2, self.screen.get_height() / 2)

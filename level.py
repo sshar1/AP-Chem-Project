@@ -20,6 +20,7 @@ class Level:
         self.player = Player(player_pos, self.bg, bgX, bgY, self.sprites)
 
         self.electrons = [Electron(self.enemy_sprites) for _ in range(8)]
+        self.update_count = 0
 
         self.ui = UI()
 
@@ -37,20 +38,19 @@ class Level:
 
             electron.update_hitbox(rel_coords)
             self.screen.blit(electron.image, rel_coords)
-            # pygame.draw.rect(self.screen, "black", electron.hit_rect)
 
     def run(self, dt):
         self.screen.blit(self.player.bg, (self.player.bgX, self.player.bgY))
 
         self.sprites.draw(self.screen)
-        # pygame.draw.rect(self.screen, "red", self.player.rect)
         self.draw_electrons()
 
         self.sprites.update(self.screen, self.electrons, self.ui, dt)
 
-        if not self.player.answering_question: # TODO electrons teleport after answering a question
+        if not self.player.answering_question and self.update_count > 3: # Let game initialize
             self.enemy_sprites.update(dt)
 
         self.ui.display(self.player)
 
+        self.update_count += 1
         pygame.display.update()
