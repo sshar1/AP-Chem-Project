@@ -2,13 +2,12 @@ import random
 import pygame
 import os
 
-# TODO when electrons spawn, they don't move for the first 5 seconds because of the cooldown, removing the cooldown makes them move very fast on initialization
 class Electron(pygame.sprite.Sprite):
     def __init__(self, groups):
         super().__init__(groups)
 
-        self.low_bound = 20
-        self.up_bound = 2480
+        self.low_bound = 0
+        self.up_bound = 2460
         self.pos = pygame.Vector2(random.randint(self.low_bound, self.up_bound), random.randint(self.low_bound, self.up_bound))
 
         self.image = pygame.image.load(os.path.join('images', 'electron.png')).convert_alpha()
@@ -16,7 +15,7 @@ class Electron(pygame.sprite.Sprite):
         self.hit_rect = self.rect.copy()
 
         self.direction = self.next_direction()
-        self.speed = self.next_speed()
+        self.speed = self.next_speed() * 0.017 # average dt without lag
         self.dt_sum = 0
 
         self.dead = False
@@ -36,7 +35,6 @@ class Electron(pygame.sprite.Sprite):
     # Every 5 seconds, get random direction and multiply by random speed. If 5 seconds passes or electron touches a boundary, get new random vectors
     def update(self, dt):
         self.dt_sum += dt
-        print(dt)
 
         # Runs every 5 seconds
         if self.dt_sum >= 5:

@@ -69,7 +69,7 @@ class UI:
     def blit_text(self, surface, text, pos, font, color=pygame.Color('white')):
         words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
         space = font.size(' ')[0]  # The width of a space.
-        max_width = self.question_rect.topleft[0] + self.question_rect.width - 20
+        max_width = self.question_rect.topright[0] - 20
         x, y = pos
         for line in words:
             for word in line:

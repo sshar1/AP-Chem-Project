@@ -20,17 +20,14 @@ class Level:
         self.player = Player(player_pos, self.bg, bgX, bgY, self.sprites)
 
         self.electrons = [Electron(self.enemy_sprites) for _ in range(8)]
-        self.update_count = 0
 
         self.ui = UI()
 
     def draw_electrons(self):
 
         for electron in self.electrons:
-            # If there's a dead electron, replace them
             if electron.dead:
-                self.electrons.remove(electron)
-                self.electrons.append(Electron(self.enemy_sprites))
+                self.electrons[self.electrons.index(electron)] = Electron(self.enemy_sprites)
 
             x = electron.pos.x + self.player.bgX
             y = electron.pos.y + self.player.bgY
@@ -47,10 +44,9 @@ class Level:
 
         self.sprites.update(self.screen, self.electrons, self.ui, dt)
 
-        if not self.player.answering_question and self.update_count > 3: # Let game initialize
+        if not self.player.answering_question:
             self.enemy_sprites.update(dt)
 
         self.ui.display(self.player)
 
-        self.update_count += 1
         pygame.display.update()
