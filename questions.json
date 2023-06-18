@@ -64,7 +64,7 @@
         },
 
         {
-            "question" : "Nitrogen gas was collected over water at 25°C. If the vapor pressure of water at 25°C is 23 mmHg, and the total pressure in the container is measured at 781 mmHg, what is the partial pressure of the nitrogen gas?",
+            "question" : "Nitrogen gas was collected over water at 25C. If the vapor pressure of water at 25C is 23 mmHg, and the total pressure in the container is measured at 781 mmHg, what is the partial pressure of the nitrogen gas?",
             "a" : "46 mmHg",
             "b" : "551 mmHg",
             "c" : "735 mmHg",
@@ -208,7 +208,7 @@
         },
 
         {
-            "question" : "The following reaction is found to be at equilibrium at 25°C: 2SO3(g) ↔ O2 (g) + 2SO2(g) H = -198 kJ/mol. What is the expression for the equilibrium constant?",
+            "question" : "The following reaction is found to be at equilibrium at 25C: 2SO3(g) ↔ O2 (g) + 2SO2(g) H = -198 kJ/mol. What is the expression for the equilibrium constant?",
             "a" : "[SO3]^2 / [O2][SO2]^2",
             "b" : "2[SO3] / [O2][SO2]^2",
             "c" : "[O2][SO2]^2 / [SO3]^2",
@@ -217,7 +217,7 @@
         },
 
         {
-            "question" : "The following reaction is found to be at equilibrium at 25°C: 2SO3(g) ↔ O2 (g) + 2SO2(g) H = -198 kJ/mol. Which of the following would cause a reduction in the value for the equilibrium constant?",
+            "question" : "The following reaction is found to be at equilibrium at 25C: 2SO3(g) ↔ O2 (g) + 2SO2(g) H = -198 kJ/mol. Which of the following would cause a reduction in the value for the equilibrium constant?",
             "a" : "Increasing the amount of SO3",
             "b" : "Reducing the amount of O2",
             "c" : "Raising the temperature",

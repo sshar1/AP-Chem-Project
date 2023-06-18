@@ -15,7 +15,7 @@ class Electron(pygame.sprite.Sprite):
         self.hit_rect = self.rect.copy()
 
         self.direction = self.next_direction()
-        self.speed = self.next_speed() * 0.017 # average dt without lag
+        self.speed = self.next_speed()
         self.dt_sum = 0
 
         self.dead = False
@@ -39,15 +39,15 @@ class Electron(pygame.sprite.Sprite):
         # Runs every 5 seconds
         if self.dt_sum >= 5:
             self.direction = self.next_direction()
-            self.speed = self.next_speed() * dt
+            self.speed = self.next_speed()
             self.dt_sum = 0
 
-        self.pos.x += self.direction.x * self.speed
-        self.pos.y += self.direction.y * self.speed
+        self.pos.x += self.direction.x * self.speed * dt
+        self.pos.y += self.direction.y * self.speed * dt
 
         if self.pos.x > self.up_bound or self.pos.x < self.low_bound or self.pos.y > self.up_bound or self.pos.y < self.low_bound:
             self.direction = self.next_direction()
-            self.speed = self.next_speed() * dt
+            self.speed = self.next_speed()
             self.dt_sum = 0
 
             if self.pos.x > self.up_bound: self.pos.x = self.up_bound
