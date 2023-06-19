@@ -1,5 +1,6 @@
 import pygame
 import os
+from fluorine import Fluorine
 from heat import Heat
 from player import Player
 from electron import Electron
@@ -22,32 +23,32 @@ class Level:
 
         self.electrons = [Electron(self.enemy_sprites) for _ in range(6)]
         self.heats = [Heat(self.enemy_sprites) for _ in range(2)]
+        self.fluorine = Fluorine(self.enemy_sprites)
 
         self.ui = UI()
 
+    def blit_enemy(self, enemy):
+        x = enemy.pos.x + self.player.bgX
+        y = enemy.pos.y + self.player.bgY
+        rel_coords = pygame.Vector2(x, y)
+
+        enemy.update_hitbox(rel_coords)
+        self.screen.blit(enemy.image, rel_coords)
+
+    # TODO clean this function because there's lots of repetition
     def draw_enemies(self):
 
         for electron in self.electrons:
             if electron.dead:
                 self.electrons[self.electrons.index(electron)] = Electron(self.enemy_sprites)
-
-            x = electron.pos.x + self.player.bgX
-            y = electron.pos.y + self.player.bgY
-            rel_coords = pygame.Vector2(x, y)
-
-            electron.update_hitbox(rel_coords)
-            self.screen.blit(electron.image, rel_coords)
+            self.blit_enemy(electron)
 
         for heat in self.heats:
             if heat.dead:
                 self.heats[self.heats.index(heat)] = Heat(self.enemy_sprites)
+            self.blit_enemy(heat)
 
-            x = heat.pos.x + self.player.bgX
-            y = heat.pos.y + self.player.bgY
-            rel_coords = pygame.Vector2(x, y)
-
-            heat.update_hitbox(rel_coords)
-            self.screen.blit(heat.image, rel_coords)
+        self.blit_enemy(self.fluorine)
 
     def run(self, dt):
         self.screen.blit(self.player.bg, (self.player.bgX, self.player.bgY))
@@ -55,7 +56,7 @@ class Level:
         self.sprites.draw(self.screen)
         self.draw_enemies()
 
-        self.sprites.update(self.screen, self.electrons, self.heats, self.ui, dt)
+        self.sprites.update(self.screen, self.electrons, self.heats, self.fluorine, self.ui, dt)
 
         if not self.player.answering_question:
             self.enemy_sprites.update(dt)

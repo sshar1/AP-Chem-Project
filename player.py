@@ -50,7 +50,7 @@ class Player (pygame.sprite.Sprite):
         elif keys[pygame.K_4]:
             return 4
 
-    def update(self, screen, electrons, heats, ui, dt):
+    def update(self, screen, electrons, heats, fluorine, ui, dt):
 
         # Question ui
         if self.answering_question:
@@ -162,9 +162,9 @@ class Player (pygame.sprite.Sprite):
         self.x_coord = -self.bgX + self.pos.x
         self.y_coord = -self.bgY + self.pos.y
 
-        self.check_collisions(electrons, heats, ui)
+        self.check_collisions(electrons, heats, fluorine, ui)
 
-    def check_collisions(self, electrons, heats, ui):
+    def check_collisions(self, electrons, heats, fluorine, ui):
         for electron in electrons:
             if self.rect.colliderect(electron.hit_rect) and not electron.dead:
                 if self.electrons < self.max_electrons:
@@ -181,3 +181,7 @@ class Player (pygame.sprite.Sprite):
                     self.heats += 1
                 else:
                     print('max heats obtained')
+
+        if self.rect.colliderect(fluorine.hit_rect):
+            # if not enough electrons, lose 3 electrons (cant go below 0) and fluorine goes to random spot on map (dies). if too many electrons, lose 6 electrons
+            print('touched fluorine')
