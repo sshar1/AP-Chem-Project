@@ -8,6 +8,8 @@ class UI:
         self.screen = pygame.display.get_surface()
 
         self.eUI = pygame.image.load(os.path.join('images', 'eConfigUI2.png')).convert_alpha()
+        self.win_screen_img = pygame.image.load(os.path.join('images', 'winScreen.png')).convert_alpha()
+        self.lose_screen_img = pygame.image.load(os.path.join('images', 'loseScreen.png')).convert_alpha()
         self.e_config_font = pygame.font.Font(None, 17)
         self.question_font = pygame.font.Font(None, 30) 
         self.answer_font = pygame.font.Font(None, 25) 
@@ -52,9 +54,9 @@ class UI:
         self.response = ""
 
     def get_response_color(self):
-        if self.response == 'Correct :)':
+        if 'Correct :)' in self.response:
             return 'green'
-        elif self.response == 'Wrong!':
+        elif 'Wrong!' in self.response:
             return 'red'
         else:
             return 'white'
@@ -114,6 +116,12 @@ class UI:
         text_rect = text_surf.get_rect(bottomleft = (68, self.screen.get_height() - 33))
 
         self.screen.blit(text_surf, text_rect)
+
+    def win_screen(self):
+        self.screen.blit(self.win_screen_img, (0, 0))
+
+    def lose_screen(self):
+        self.screen.blit(self.lose_screen_img, (0, 0))
 
     def display(self, player):
         self.screen.blit(self.eUI, (10, self.screen.get_height() - 90))

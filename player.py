@@ -19,16 +19,34 @@ class Player (pygame.sprite.Sprite):
         self.bgY = bgY
 
         # Player can have 3 extra electrons max
-        self.electrons = 0
+        self.electrons = 11 # 0
         self.max_electrons = 14
         self.goal_electrons = 11
-        self.heats = 0
+        self.heats = 3 # 0
         self.max_heats = 3
         self.eject_dt_sum = 0
 
         self.answering_question = False
         self.dt_sum = 0
         self.question_input_received = False
+        self.response = ''
+
+        self.boss_started = False
+        self.boss_questions_done = 0
+        self.boss_question_wrong = False
+
+        self.lose = False
+        self.win = False
+
+    def decrease_electrons(self, count):
+        self.electrons -= count
+        if self.electrons < 0:
+            self.electrons = 0
+
+    def increase_electrons(self, count):
+        self.electrons += count
+        if self.electrons > self.max_electrons:
+            self.electrons = self.max_electrons
 
     def eject_electron(self):
         extra_electrons = self.electrons - self.goal_electrons
@@ -36,7 +54,7 @@ class Player (pygame.sprite.Sprite):
 
         if extra_electrons > 0 and self.heats >= heat_cost: 
             self.heats -= heat_cost
-            self.electrons -= 1
+            self.decrease_electrons(1)
 
     def question_input(self):
         keys = pygame.key.get_pressed()
@@ -52,17 +70,23 @@ class Player (pygame.sprite.Sprite):
 
     def update(self, screen, electrons, heats, fluorine, ui, dt):
 
-        # Question ui
+        # Question ui, code is super messy and has to be cleaned
         if self.answering_question:
             ui.display_question()
-            if self.question_input() == ui.get_answer():
-                if not self.question_input_received and self.electrons < self.max_electrons:
-                    self.electrons += 1
+            if self.question_input() == ui.get_answer() and not self.question_input_received: # If question is correct
+                if not self.boss_started:
+                    self.increase_electrons(1)
+                else:
+                    self.boss_questions_done += 1
                 self.question_input_received = True
-                ui.set_response('Correct :)')
-            elif self.question_input() is not None and self.question_input() in [1, 2, 3, 4]:
+                self.response = 'Correct :)'
+            elif self.question_input() is not None and self.question_input() in [1, 2, 3, 4] and not self.question_input_received: # If question is incorrect
+                if self.boss_started:
+                    self.boss_question_wrong = True
                 self.question_input_received = True
-                ui.set_response('Wrong!')
+                self.response = 'Wrong!'
+
+            ui.set_response(self.response)
             
             if self.question_input_received:
                 # Wait 2 seconds
@@ -70,7 +94,21 @@ class Player (pygame.sprite.Sprite):
                 if self.dt_sum >= 2:
                     self.question_input_received = False
                     self.dt_sum = 0
-                    self.answering_question = False
+                    self.response = ''
+                    if self.boss_question_wrong: 
+                        self.lose = True
+                        pygame.mixer.music.load(os.path.join('music', 'defeat.mp3'))
+                        pygame.mixer.music.play()
+                        return
+                    if not self.boss_started:
+                        self.answering_question = False
+                    else:
+                        if self.boss_questions_done < 5:
+                            ui.get_question()
+                        else:
+                            self.win = True
+                            pygame.mixer.music.load(os.path.join('music', 'victory.mp3'))
+                            pygame.mixer.music.play()
             return
 
         # Camera scrolling logic
@@ -182,6 +220,19 @@ class Player (pygame.sprite.Sprite):
                 else:
                     print('max heats obtained')
 
-        if self.rect.colliderect(fluorine.hit_rect):
-            # if not enough electrons, lose 3 electrons (cant go below 0) and fluorine goes to random spot on map (dies). if too many electrons, lose 6 electrons
-            print('touched fluorine')
+        if self.rect.colliderect(fluorine.hit_rect) and not self.boss_started:
+            if self.electrons < self.goal_electrons:
+                self.decrease_electrons(3)
+                fluorine.teleport(self)
+            if self.electrons > self.goal_electrons:
+                self.decrease_electrons(6)
+                fluorine.teleport(self)
+            if self.electrons == self.goal_electrons:
+                self.boss_started = True
+                # for _ in range(5): # TODO doesn't work rn
+                #     print('doing question')
+                #     if not self.answering_question: 
+                #         self.answering_question = True
+                #         ui.get_question()
+                ui.get_question()
+                self.answering_question = True

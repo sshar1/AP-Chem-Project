@@ -3,12 +3,15 @@ import pygame
 import os
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, groups, image, min_speed, max_speed, update_time):
+    def __init__(self, groups, image, min_speed, max_speed, player, update_time):
         super().__init__(groups)
+
+        self.screen = pygame.display.get_surface()
 
         self.low_bound = 0
         self.up_bound = 2500 - image.get_width()
-        self.pos = pygame.Vector2(random.randint(self.low_bound, self.up_bound), random.randint(self.low_bound, self.up_bound))
+        self.pos = self.next_pos()
+        self.teleport(player) # Make sure position is off screen of player camera
 
         self.image = image
         self.rect = self.image.get_rect(center = self.pos)
@@ -23,6 +26,23 @@ class Enemy(pygame.sprite.Sprite):
         self.dt_sum = 0
 
         self.dead = False
+
+    # Teleports enemy to random position that is out of range of player
+    def teleport(self, player):
+        minX = int(-player.bgX)
+        maxX = int(-player.bgX + self.screen.get_width())
+        minY = int(-player.bgY)
+        maxY = int(-player.bgY + self.screen.get_height())
+
+        pos = self.next_pos()
+
+        while (pos.x in range(minX, maxX) or pos.y in range(minY, maxY)):
+            pos = self.next_pos()
+
+        self.pos = pos
+
+    def next_pos(self):
+        return pygame.Vector2(random.randint(self.low_bound, self.up_bound), random.randint(self.low_bound, self.up_bound))
 
     def next_direction(self):
         direct = pygame.Vector2()

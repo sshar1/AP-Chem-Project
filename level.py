@@ -21,9 +21,9 @@ class Level:
         bgX, bgY = 0, 0
         self.player = Player(player_pos, self.bg, bgX, bgY, self.sprites)
 
-        self.electrons = [Electron(self.enemy_sprites) for _ in range(6)]
-        self.heats = [Heat(self.enemy_sprites) for _ in range(2)]
-        self.fluorine = Fluorine(self.enemy_sprites)
+        self.electrons = [Electron(self.player, self.enemy_sprites) for _ in range(6)]
+        self.heats = [Heat(self.player, self.enemy_sprites) for _ in range(2)]
+        self.fluorine = Fluorine(self.player, self.enemy_sprites)
 
         self.ui = UI()
 
@@ -35,22 +35,30 @@ class Level:
         enemy.update_hitbox(rel_coords)
         self.screen.blit(enemy.image, rel_coords)
 
-    # TODO clean this function because there's lots of repetition
     def draw_enemies(self):
 
         for electron in self.electrons:
             if electron.dead:
-                self.electrons[self.electrons.index(electron)] = Electron(self.enemy_sprites)
+                self.electrons[self.electrons.index(electron)] = Electron(self.player, self.enemy_sprites)
             self.blit_enemy(electron)
 
         for heat in self.heats:
             if heat.dead:
-                self.heats[self.heats.index(heat)] = Heat(self.enemy_sprites)
+                self.heats[self.heats.index(heat)] = Heat(self.player, self.enemy_sprites)
             self.blit_enemy(heat)
 
         self.blit_enemy(self.fluorine)
 
     def run(self, dt):
+        if self.player.lose:
+            self.ui.lose_screen()
+            pygame.display.update()
+            return
+        if self.player.win:
+            self.ui.win_screen()
+            pygame.display.update()
+            return
+        
         self.screen.blit(self.player.bg, (self.player.bgX, self.player.bgY))
 
         self.sprites.draw(self.screen)
