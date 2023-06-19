@@ -19,10 +19,10 @@ class Player (pygame.sprite.Sprite):
         self.bgY = bgY
 
         # Player can have 3 extra electrons max
-        self.electrons = 11 # 0
+        self.electrons = 0 
         self.max_electrons = 14
         self.goal_electrons = 11
-        self.heats = 3 # 0
+        self.heats = 0 
         self.max_heats = 3
         self.eject_dt_sum = 0
 
